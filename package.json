@@ -1,0 +1,33 @@
+{
+  "name": "hypergamma",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "npm run dev:app",
+    "dev": "concurrently -n BE,FE --kill-others \"npm run dev:server\" \"npm run dev:app\"",
+    "dev:app": "vite",
+    "dev:server": "echo 'no server yet'",
+    "build": "npm run build:app",
+    "build:app": "vite build"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Garrett Flynn"
+  },
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "lit": "^2.6.1",
+    "vite": "^4.1.4"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.0-beta.62",
+    "@storybook/addon-links": "^7.0.0-beta.62",
+    "@storybook/blocks": "^7.0.0-beta.62",
+    "@storybook/web-components": "^7.0.0-beta.62",
+    "@storybook/web-components-vite": "^7.0.0-beta.62",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.0-beta.62"
+  }
+}

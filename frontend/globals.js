@@ -1,0 +1,1 @@
+export const isStorybook = window.location.href.includes('iframe.html')
