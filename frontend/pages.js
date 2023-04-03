@@ -29,7 +29,8 @@ for (const [key, value] of Object.entries(icons)) {
     iconEls[key] = el
 }
 
-import logo from './assets/img/hypergamma-logo.png'
+import logo from './assets/img/hypergamma-logo-colorized.png'
+
 let dashboard = document.querySelector("hypergamma-dashboard")
 if (!dashboard) dashboard = new Dashboard()
 dashboard.logo = logo

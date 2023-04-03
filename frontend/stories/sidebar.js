@@ -66,7 +66,6 @@ li {
 
 #main-nav {
   background: var(--color-sidebar);
-  border-top: 1px solid #d5d5d5;
   color: white;
   font-family: "Source Sans Pro", sans-serif;
   transition: all 0.25s linear;
@@ -447,6 +446,13 @@ a[data-toggle="collapse"] {
   border-bottom: none;
 }
 
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+}
 .nav-center-logo-image {
   display: block;
   width: 100%;
@@ -575,12 +581,14 @@ export class Sidebar extends LitElement {
         <div id="nav-items" class="nav-item u-category-windows">
           <!-- Sidebar Header -->
           <div class="sidebar-header">
+
               ${logoNoName ? html`
-                <img
-                  id="button-soda-big-icon"
-                  class="nav-center-logo-image"
-                  src="${this.logo}"
-                />
+                <div class="logo-container">
+                  <img
+                    class="nav-center-logo-image"
+                    src="${this.logo}"
+                  />
+                </div>
               ` : ''}
                 ${hasName ? html`<h1 style="margin: 0;">${this.name}</h1>` : ''}
                 ${this.subtitle ? html`<span id="subtitle" style="font-size: 14px; ${logoNoName ? `padding-top: 15px; text-align: center; width: 100%; display: block;` : ''}">${this.subtitle}</span>` : ''}
@@ -603,7 +611,6 @@ export class Sidebar extends LitElement {
             <div>
             ${!logoNoName && this.logo ? html`
             <img
-              id="button-soda-big-icon"
               class="nav-center-logo-image"
               style="padding:0px 40px;"
               src="${this.logo}"

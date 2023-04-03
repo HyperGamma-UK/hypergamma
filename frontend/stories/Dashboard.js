@@ -23,7 +23,6 @@ const componentCSS = css`
 
     hypergamma-main {
         background: #fff;
-        border-top: 1px solid #c3c3c3;
     }
 `
 

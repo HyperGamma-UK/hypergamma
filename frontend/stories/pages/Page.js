@@ -1,7 +1,6 @@
 
 
 import { LitElement, html, css } from 'lit';
-import '../Footer.js'
 import '../Button'
 
 export class Page extends LitElement {
