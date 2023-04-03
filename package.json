@@ -9,7 +9,7 @@
     "dev:server": "echo 'no server yet'",
     "build": "npm run build:app",
     "build:app": "vite build",
-    "clean": "rm -rf frontend/dist",
+    "clean": "rm -rf frontend/dist"
   },
   "keywords": [],
   "author": {
