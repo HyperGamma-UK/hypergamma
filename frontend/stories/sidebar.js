@@ -5,6 +5,19 @@ const componentCSS = css`
  
 a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+img {
+  width: 50px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
+li {
+  margin-bottom: 10px;
 }
 
 #sidebarCollapse {
@@ -54,7 +67,7 @@ a {
 #main-nav {
   background: var(--color-sidebar);
   border-top: 1px solid #d5d5d5;
-  color: black;
+  color: white;
   font-family: "Source Sans Pro", sans-serif;
   transition: all 0.25s linear;
   transform-origin: 0 50%; /* Set the transformed position of sidebar to center left side. */
@@ -113,19 +126,18 @@ a[data-toggle="collapse"] {
 }
 
 #main-nav ul p {
-  color: #000;
+  color: white;
   padding: 10px;
 }
 
 #main-nav ul li a {
   font-size: 14px;
-  display: block;
   line-height: 45px;
   padding-left: 20px;
   margin-bottom: 5px;
   text-align: left;
   padding-right: 10px;
-  color: #000;
+  color: white;
   border: none;
   border-radius: 4px;
   border-left: 4px solid transparent;
@@ -153,16 +165,16 @@ a[data-toggle="collapse"] {
 }
 
 #main-nav ul li a.is-selected {
-  color: var(--color-light-green);
+  color: var(--color-accent);
   background: none;
   font-weight: 600;
-  border-left: 4px solid var(--color-light-green);
+  border-left: 4px solid var(--color-accent);
   /* margin-left: -3px; */
   border-radius: 0;
 }
 
 #main-nav ul li a.is-selected svg {
-  fill: var(--color-light-green);
+  fill: var(--color-accent);
 }
 
 .help-section {
@@ -466,7 +478,7 @@ export class Sidebar extends LitElement {
     this.pages = props.pages
     this.name = props.name ?? ''
     this.logo = props.logo
-    this.subtitle = props.subtitle ?? '0.0.1'
+    this.subtitle = props.subtitle
     this.renderName = props.renderName ?? true
   }
 
@@ -579,14 +591,13 @@ export class Sidebar extends LitElement {
                 const info = page.info ?? {}
                 let label = info.label ?? id
                 const icon = info.icon ?? ''
-                const a = document.createElement('a')
-                a.setAttribute('data-id', id)
-                a.href = "#"
-                a.innerHTML = `
-                  ${icon}
-                  ${label}
-                `
-                return html`<li @click="${() => this.#onClick(id)}">${a}</li>`
+
+                return html`<li @click="${() => this.#onClick(id)}">
+                  <a data-id="${id}" href="#">
+                    ${icon}
+                    ${label}
+                  </a>
+                </li>`
               })}
             </ul>
             <div>

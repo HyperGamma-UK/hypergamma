@@ -9,22 +9,45 @@ import { FocusPage } from "./stories/pages/plus/FocusPage"
 import { PerformancePage } from "./stories/pages/plus/PeformancePage"
 import { MeditationPage } from "./stories/pages/plus/MeditationPage"
 
-// import logo from './assets/img/logo-draft-transparent-tight.png'
+import homeIcon from "./assets/img/home.png"
+import plusIcon from "./assets/img/plus.png"
+import devicesIcon from "./assets/img/devices.png"
+import analyticsIcon from "./assets/img/analytics.png"
+import reportsIcon from "./assets/img/reports.png"
+
+const icons = {
+    home: homeIcon,
+    plus: plusIcon,
+    devices: devicesIcon,
+    analytics: analyticsIcon,
+    reports: reportsIcon
+}
+const iconEls = {}
+for (const [key, value] of Object.entries(icons)) {
+    const el = document.createElement('img')
+    el.src = value
+    iconEls[key] = el
+}
+
+import logo from './assets/img/hypergamma-logo.png'
 let dashboard = document.querySelector("hypergamma-dashboard")
 if (!dashboard) dashboard = new Dashboard()
-// dashboard.logo = logo
+dashboard.logo = logo
 dashboard.name = 'HyperGamma'
-// dashboard.renderNameInSidebar = false
+dashboard.renderNameInSidebar = false
 
 const pages = {
     '/': new HomePage({
         label: "Home",
+        icon: iconEls.home
     }),
     'analytics': new AnalyticsPage({
         label: "Analytics",
+        icon: iconEls.analytics
     }),
     'plus': new HyperPlusPage({
         label: "Hyper+",
+        icon: iconEls.plus,
         pages: {
             "focus": new FocusPage({
                 label: "Focus",
@@ -42,9 +65,11 @@ const pages = {
     }),
     "devices":  new DevicesPage({
         label: "Devices",
+        icon: iconEls.devices,
     }),
     "reports":  new ReportsPage({
         label: "Reports",
+        icon: iconEls.reports,
     })
 }
 
