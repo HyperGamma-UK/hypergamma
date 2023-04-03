@@ -146,7 +146,6 @@ export class Dashboard extends LitElement {
 
     this.main.onTransition = (transition) => {
 
-      console.log('transition', transition)
       if (typeof transition === 'number'){
         const info = this.#active.info
         const sign = Math.sign(transition)

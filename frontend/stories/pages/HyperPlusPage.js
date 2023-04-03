@@ -16,10 +16,10 @@ export class HyperPlusPage extends Page {
     return html`
       <h1>Hyper+</h1>
       <div>
-        <hypergamma-button>Focus</hypergamma-button>
-        <hypergamma-button>Training</hypergamma-button>
-        <hypergamma-button>Peformance</hypergamma-button>
-        <hypergamma-button>Meditation</hypergamma-button>
+        <hypergamma-button @click=${() => this.onTransition('plus/focus')}>Focus</hypergamma-button>
+        <hypergamma-button @click=${() => this.onTransition('plus/training')}>Training</hypergamma-button>
+        <hypergamma-button @click=${() => this.onTransition('plus/performance')}>Peformance</hypergamma-button>
+        <hypergamma-button @click=${() => this.onTransition('plus/meditation')}>Meditation</hypergamma-button>
     `;
   }
 };
