@@ -8,7 +8,8 @@
     "dev:app": "vite",
     "dev:server": "echo 'no server yet'",
     "build": "npm run build:app",
-    "build:app": "vite build"
+    "build:app": "vite build",
+    "clean": "rm -rf frontend/dist",
   },
   "keywords": [],
   "author": {
