@@ -11,10 +11,17 @@ export class FocusPage extends Page {
     super(...args)
   }
 
+  updated() {
+    const deviceReadout = this.query('#readout')
+    this.subscribe('decoded', (info) => {
+      deviceReadout.innerHTML = JSON.stringify(info)
+    })
+  }
+
   render() {
     return html`
       <h1>Focus</h1>
-      <p>Coming soon...</p>
+      <p id="readout">No device connected</p>
       <br>
       <hypergamma-button @click=${() => this.onTransition('plus')}>Back</hypergamma-button>
     `;

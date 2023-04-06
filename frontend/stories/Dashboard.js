@@ -160,7 +160,6 @@ export class Dashboard extends LitElement {
       Object.entries(pages).forEach((arr) => this.addPage(this.pagesById, arr))
       this.sidebar.pages = pages
 
-      console.log('active', active)
       if (active) this.setAttribute('activePage', active)
   }
 

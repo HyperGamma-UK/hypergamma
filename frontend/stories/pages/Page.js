@@ -2,6 +2,7 @@
 
 import { LitElement, html, css } from 'lit';
 import '../Button'
+import { subscribe, unsubscribe } from '../../state';
 
 export class Page extends LitElement {
 
@@ -21,8 +22,25 @@ export class Page extends LitElement {
     Object.assign(this.info, info)
   }
 
+  subscriptions = {}
+  #subscriptions = []
+  
+  // Add render-specific functions
+  subscribe = (target, callback) => {
+    const id = subscribe(target, callback)
+    this.#subscriptions.push(id)
+  }
+
+  // Deregister all subscriptions
+  disconnectedCallback() {
+    super.connectedCallback()
+    this.#subscriptions.forEach((id) => unsubscribe(id))
+    this.#subscriptions = []
+  }
+  
+
   query = (input) => {
-    return (this.shadowRoot ?? this).querySelector(input);
+    return this.shadowRoot.querySelector(input);
   }
 
   onSet = () => {} // User-defined function

@@ -3,7 +3,7 @@
 import { html } from 'lit';
 import { Page } from './Page.js';
 
-export class AnalyticsPage extends Page {
+export class ExperimentsPage extends Page {
 
   constructor(...args) {
     super(...args)
@@ -18,10 +18,10 @@ export class AnalyticsPage extends Page {
 
   render() {
     return html`
-    <h1>Analytics</h1>
+    <h1>Experiments</h1>
     <p id="readout">No device connected</p>
     `;
   }
 };
 
-customElements.get('hypergamma-analytics-page') || customElements.define('hypergamma-analytics-page',  AnalyticsPage);
+customElements.get('hypergamma-experiments-page') || customElements.define('hypergamma-experiments-page',  ExperimentsPage);

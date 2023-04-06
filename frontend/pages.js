@@ -30,6 +30,7 @@ for (const [key, value] of Object.entries(icons)) {
 }
 
 import logo from './assets/img/hypergamma-logo-colorized.png'
+import { ExperimentsPage } from "./stories/pages/ExperimentsPage"
 
 let dashboard = document.querySelector("hypergamma-dashboard")
 if (!dashboard) dashboard = new Dashboard()
@@ -63,6 +64,9 @@ const pages = {
                 label: "Meditation",
             })
         }
+    }),
+    "experiments":  new ExperimentsPage({
+        label: "Experiments",
     }),
     "devices":  new DevicesPage({
         label: "Devices",
