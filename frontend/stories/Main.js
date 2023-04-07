@@ -7,7 +7,7 @@ const componentCSS = css`
         position: relative;
         display: grid;
         grid-template-rows: fit-content(100%) 1fr fit-content(100%);
-        overflow: hidden;
+        overflow-y: scroll;
         height: 100%;
     }
 

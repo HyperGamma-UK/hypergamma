@@ -4,6 +4,24 @@ import setState from './state'
 
 export let active = null
 
+export const selectable = {
+    BLE:{
+        hegduino:'HEGduino',
+        hegduinoV1:'HEGduino V1',
+        statechanger: "Statechanger",
+        blueberry2:'Blueberry',
+        blueberry:'Blueberry V1',
+        nrf5x: "NRF5x",
+    },
+    USB:{
+        hegduino: 'HEGduino',
+        hegduinoV1: 'HEGduino V1',
+        peanut:'Biocomp Peanut',
+        statechanger: "Statechanger",
+        nrf5x: "NRF5x",
+    }
+  }
+
 export const connect = async (mode, key) => {
     if (active) throw new Error('Already connected to a device')
     const device = await initDevice(Devices[mode][key], {
@@ -15,11 +33,12 @@ export const connect = async (mode, key) => {
             setState({status: 'disconnected'})
         },
          onconnect: (device) => {
-            console.log(device)
-            active = device
+           active = device
            setState({status: 'connected'})
          }
       })
+      
+      setState({ device })
 
       return device
 }

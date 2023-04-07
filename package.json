@@ -19,6 +19,8 @@
   "dependencies": {
     "concurrently": "^7.6.0",
     "device-decoder": "^0.4.21",
+    "graphscript": "^0.2.94",
+    "graphscript-services": "^0.2.101",
     "lit": "^2.6.1",
     "vite": "^4.1.4"
   },

@@ -3542,7 +3542,7 @@ graphscript-services.storage@~0.2.56:
     gpujsutils "~1.0.12"
     webgl-plot-utils "~0.3.18"
 
-graphscript-services@~0.2.61:
+graphscript-services@^0.2.101, graphscript-services@~0.2.61:
   version "0.2.101"
   resolved "https://registry.yarnpkg.com/graphscript-services/-/graphscript-services-0.2.101.tgz#5f93c4e58634837ed5a0024f5f653babb1af4661"
   integrity sha512-387c4PBSfW7h9vXkGvnxQGsXpZba8+cfQxh2z8H2mMBuhJM1InFtltT+s9n6nHTc5B6HUpbR2lzO9Y7UMV24lw==
@@ -3553,7 +3553,7 @@ graphscript-services@~0.2.61:
     web-worker "~1.2.0"
     webgl-plot-utils "~0.3.20"
 
-graphscript@~0.2.65:
+graphscript@^0.2.94, graphscript@~0.2.65:
   version "0.2.94"
   resolved "https://registry.yarnpkg.com/graphscript/-/graphscript-0.2.94.tgz#61ce7362f0ff3ad2a42949ebab76acd171066200"
   integrity sha512-DkhwShV6LeuGqML6wTWt5gEZ29M+p2ppTF2rZVlGLXcd7yZR6VtoqxHUfsGYW3k4AWjX37VSLYJ9wJfw1U/Blw==

@@ -3,6 +3,8 @@ let subscriptions = {}
 
 let allSubscriptions = {}
 
+export const states = {}
+
 const infoSubscribeSymbol = Symbol('infoSubscribeSymbol')
 
 export const subscribe = (target, callback) => {
@@ -48,7 +50,10 @@ export const unsubscribe = (id) => {
     })
 }
 
+const maxDepth = 5
+
 let runOnPrimitiveValues = (obj, path = []) => {
+    if (path.length > maxDepth) return
     for (let key in obj) {
         const fullKey = [...path, key].join('.')
         if (typeof obj[key] === 'object') runOnPrimitiveValues(obj[key], [...path, key])
@@ -59,6 +64,9 @@ let runOnPrimitiveValues = (obj, path = []) => {
 
 export const setState = (info) => {
     if (!info) return
+
+    Object.assign(states, info)
+
 
     // Run all internal subscriptions
     runOnPrimitiveValues(info)
