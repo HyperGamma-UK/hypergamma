@@ -5,7 +5,7 @@ import { AnalyticsPage } from "./stories/pages/AnalyticsPage"
 import { ReportsPage } from "./stories/pages/ReportsPage"
 import { Dashboard } from "./stories/Dashboard"
 import { TrainingPage } from "./stories/pages/plus/TrainingPage"
-import { FocusPage } from "./stories/pages/plus/FocusPage"
+import { FocusApp } from "./stories/pages/plus/FocusApp"
 import { PerformancePage } from "./stories/pages/plus/PeformancePage"
 import { MeditationPage } from "./stories/pages/plus/MeditationPage"
 
@@ -51,7 +51,7 @@ const pages = {
         label: "Hyper+",
         icon: iconEls.plus,
         pages: {
-            "focus": new FocusPage({
+            "focus": new FocusApp({
                 label: "Focus",
             }),
             "training": new TrainingPage({
