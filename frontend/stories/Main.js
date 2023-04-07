@@ -3,16 +3,25 @@
 import { LitElement, html, css } from 'lit';
 
 const componentCSS = css`
+  * {
+      box-sizing: border-box;
+  }
+  
     :host {
         position: relative;
-        display: grid;
-        grid-template-rows: fit-content(100%) 1fr fit-content(100%);
         overflow-y: scroll;
         height: 100%;
     }
 
     section { 
       padding: 25px;
+      height: 100%;
+      width: 100%;
+    }
+
+    main {
+      height: 100%;
+      width: 100%;
     }
 `
 
@@ -69,9 +78,7 @@ export class Main extends LitElement {
 
     return html`
       <main id="content">
-        <section>
           ${page}
-        </section>
       </main>
     `;
   }

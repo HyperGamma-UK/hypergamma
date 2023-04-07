@@ -18,7 +18,14 @@ const plotworker = new Worker(
 export class DevicesPage extends Page {
 
   static get styles() {
-    return css`
+
+    return [super.styles, css`
+
+      :host {
+        display: block;
+        padding: 25px;
+      }
+
       .row {
         display: flex;
         flex-direction: row;
@@ -49,7 +56,7 @@ export class DevicesPage extends Page {
         top: 0;
         left: 0;
       }
-    `
+    `]
   }
 
   canvas = document.createElement('canvas')

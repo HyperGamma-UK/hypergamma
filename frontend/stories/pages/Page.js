@@ -6,13 +6,13 @@ import { subscribe, unsubscribe } from '../../state';
 
 export class Page extends LitElement {
 
-  static get styles() {
+  static get styles(){
     return css`
-      section {
-        width: 100%;
-        height: 100%;
+      :host {
+        display: block;
+        padding: 25px;
       }
-    `
+    `;
   }
 
   info = { globalState: {} }

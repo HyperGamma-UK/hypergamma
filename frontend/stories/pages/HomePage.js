@@ -1,6 +1,6 @@
 
 
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { Page } from './Page.js';
 
 export class HomePage extends Page {
