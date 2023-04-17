@@ -7,6 +7,7 @@ import '../Button.js';
 import * as devices from '../../devices.js';
 import { chartSettings, workers } from "device-decoder";
 import { WGLPlotter } from '../plot/webglplot/plotter.js';
+import { Grid } from '../Grid.js';
 
 
 // Load a worker with vite
@@ -24,19 +25,6 @@ export class DevicesPage extends Page {
       :host {
         display: block;
         padding: 25px;
-      }
-
-      .row {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .row > div {
-        padding: 10px;
-        flex-grow: 1;
       }
 
       #plotter {
@@ -70,8 +58,6 @@ export class DevicesPage extends Page {
 
 
   render() {
-
-    let readout = document.createElement('p')
 
     // Plot a subset of the data
     this.subscribe('decoded', (info) => this.plotter.update(info))
@@ -148,6 +134,14 @@ export class DevicesPage extends Page {
     if (devices.active) this.status.innerHTML = "Connected"
     else this.status.innerHTML = "Disconnected"
 
+    this.grid = new Grid([
+      { title: 'Battery Life', value: '100%' },
+      { title: 'Device Status', value: this.status },
+      { title: 'Last Session', value: (new Date()).toUTCString() },
+      { title: 'Average Session Duration', value: (120*Math.random()).toFixed(2) + ' minutes' },
+      { title: 'Current Average Ratio', value: ratioReadout },
+     ])
+
     return html`
     <h1>Devices Manager</h1>
     <select>
@@ -170,31 +164,7 @@ export class DevicesPage extends Page {
     }}>Connect</hypergamma-button>
 
 
-   ${readout}
-   ${ratioReadout}
-
-    <div class="row">
-      <div>
-        <h3>Battery Life</h3>
-        <p>100%</p>
-      </div>
-      <div>
-        <h3>Device Status</h3>
-        ${this.status}
-      </div>
-      <div>
-        <h3>Last Session</h3>
-        <p>${(new Date()).toUTCString()}</p>
-      </div>
-      <div>
-        <h3>Average Session Duration</h3>
-        <p>${(120*Math.random()).toFixed(2)} minutes</p>
-      </div>
-      <div>
-        <h3>Current Average Ratio</h3>
-        ${ratioReadout}
-      </div>
-    </div>
+   ${this.grid}
 
     <h3>Data Streams</h3>
     <div id="plotter"></div>
