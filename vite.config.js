@@ -1,8 +1,13 @@
 import { defineConfig } from "vite";
 
+import { frontendPort } from './common/index'
+
 export default defineConfig({
   base: "./",
   build: {
-    outDir: 'frontend/dist',
+    chunkSizeWarningLimit: 1000
   },
+  server: {
+    port: frontendPort
+  }
 });

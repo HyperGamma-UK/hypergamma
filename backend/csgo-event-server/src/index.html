@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS:GO Server Test</title>
+</head>
+<body>
+    <h1 id="provider-name">Start Playing CS:GO</h1>
+    <p><b id="player-name">No User Detected</b>  <sub id="provider-steamid">-</sub></p>
+
+    <div>
+        <div id="steam">
+            <label>Steam:</label><button id="steamButton">Install Steam</button>
+        </div>
+        <div id="csgo">
+            <label>CS:GO:</label><button id="csgoButton">Install CS:GO</button>
+        </div>
+    </div>
+
+    <p><b>Activity:</b> <span id="player-activity"></span></p>
+
+    <div id="session-information">
+
+        <h3>Map <sub id="map-phase"></sub></h3>
+    
+        <h3>Round <sub id="round-phase"></sub></h3>
+        <p><b>Bomb:</b> <span id="round-bomb"></span></p>
+    
+        <h2>Player <sub id="player-team"></sub></h2>
+        
+        <p><b>Health:</b> <span id="player-state-health"></span></p>
+        <p><b>Armor:</b> <span id="player-state-armor"></span></p>
+        <p><b>Helmet:</b> <span id="player-state-helmet"></span></p>
+        <p><b>Defuse Kit:</b> <span id="player-state-defusekit"></span></p>
+
+        <p><b>Flashed:</b> <span id="player-state-flashed"></span></p>
+        <p><b>Smoked:</b> <span id="player-state-smoked"></span></p>
+        <p><b>Burning:</b> <span id="player-state-burning"></span></p>
+        <p><b>Money:</b> <span id="player-state-money"></span></p>
+        <p><b>Round Kills:</b> <span id="player-state-round_kills"></span></p>
+        <p><b>Round Headshots:</b> <span id="player-state-round_killhs"></span></p>
+        <p><b>Equipment Value:</b> <span id="player-state-equip_value"></span></p>
+
+        <p><b>Observer Slot:</b> <span id="player-observer_slot"></span></p>
+
+        <h3>Stats</h3>
+        <p><b>Score:</b> <span id="player-match_stats-score"></span></p>
+        <p><b>Kills:</b> <span id="player-match_stats-kills"></span></p>
+        <p><b>Assists:</b> <span id="player-match_stats-assists"></span></p>
+        <p><b>Deaths:</b> <span id="player-match_stats-deaths"></span></p>
+        <p><b>MVPs:</b> <span id="player-match_stats-mvps"></span></p>
+
+        <h2>Round</h2>
+        <p><b>Bomb:</b> <span id="round-bomb"></span></p>
+    </div>
+</body>
+<script>
+
+    const appid = 730
+
+    const csgoButton = document.getElementById('csgoButton')
+    const steamButton = document.getElementById('steamButton')
+
+   fetch('/installed').then(res => res.json(res)).then(installed => {
+        if (installed.steam) {
+            steamButton.innerText = 'Open Steam'
+            steamButton.onclick = () => window.open(`steam://open/main`)
+
+            if (installed.csgo) {
+                steamButton.innerText = 'Launch CS:GO'
+                csgoButton.onclick = () => window.open(`steam://launch/${appid}`)
+            } else {
+                csgoButton.onclick = () => window.open(`steam://install/${appid}`)
+            }
+            
+        } else {
+            steamButton.onclick = () => window.open(`https://store.steampowered.com/about/`)
+        }
+    })
+
+
+
+
+    var source = new EventSource('/events');
+
+    const ul = document.querySelector('ul')
+
+    function addListItem(html) {
+        ul.insertAdjacentHTML('beforeend', `<li>${html}</li>`)
+    }
+
+    function mapUpdates(model, active, callback, path = []) {
+        const updates = []
+
+        for (let key in model) {
+
+            const previous = model[key]
+            const latest = active[key]
+            const fullPath = [...path, key]
+            if (typeof previous === 'object' && latest && typeof latest === 'object') updates.push(...mapUpdates(previous, latest, callback, fullPath))
+            else {
+                const id = fullPath.join('-')
+                callback(id, latest, previous)
+                updates.push({ id, latest, previous })
+            }
+        }
+
+        return updates
+    }
+
+    let providerInfo = {}
+    let previousUpdate = {}
+
+    // const infoElement = document.getElementById('session-information')
+
+    const updateUI = (id, latest, previous, isNew) => {
+
+        // if (id === 'player-activity') {
+        //     if (latest === 'menu') infoElement.setAttribute('hidden', '')
+        //     else infoElement.removeAttribute('hidden')
+        // }
+
+        if (previousUpdate[id] === latest) return // No update to the UI expected
+
+        previousUpdate[id] = latest
+
+        if (isNew) console.warn('Handle New Entry', id, latest, previous)
+
+        const el = document.getElementById(id)
+        if (el) el.innerText = latest
+        else console.log(id, latest, previous)
+    }
+
+    function handleSSEEvent(event) {
+        const info = JSON.parse(event.data)
+        let { provider, previously, added, ...update } = info
+
+        if (provider) {
+
+            const { name, steamid, appid, timestamp, version } = provider
+
+            // Update the Provider Information
+            if (!('steamid' in providerInfo)) {
+                mapUpdates(provider, provider, (id, latest) => updateUI(id, latest), [ 'provider' ]) // Update UI using provider info
+                providerInfo = provider
+            }
+
+            // Cycle Through the Available Updates
+            Object.entries(update).forEach(([ name, latest ]) => {
+
+                if ('steamid' in latest && latest.steamid !== steamid) return
+
+                // Trigger when the new information does not have accompanying historical information that makes sense
+                if (
+                    !previously // No previous info
+                    || (name in previously && 'steamid' in previously[name] && previously[name].steamid !== steamid) // Previous info is not self
+                ) previously = {[name]: latest}
+
+                // Contextualize the latest data with the previous value
+                
+                if (previously) mapUpdates(previously[name], latest, (id, latest, previous) => updateUI(id, latest, previously === latest ? undefined : previous), [ name ])
+
+                // Separately register properties that have been added to the latest data
+                if (added) mapUpdates(added[name], latest, (id, latest) =>  {
+                    
+                    // Update with a new object
+                    if (typeof latest === 'object'){
+                        updateUI(id, latest, undefined, true) // We will need to generate a new UI component for this
+                        mapUpdates(latest, latest, (id, latest) => updateUI(id, latest), id.split('-')) // Initialize the updates for this
+                    } 
+                    
+                    // Just update with a new value
+                    else updateUI(id, latest)
+                }, [ name ])
+
+            })
+        } else {
+            console.warn('Non-CS:GO Message', update)
+        }
+
+    }
+
+    function onOpen(event) {
+        console.warn('Event source opened!')
+    }
+
+    // source.addEventListener('progress', handleSSEEvent, false);
+    source.addEventListener('message', handleSSEEvent);
+
+    source.addEventListener('error', function(event) {
+        console.error("Failed to connect to event stream.");
+    }, false);
+
+    source.addEventListener("open", onOpen);
+
+    // fetch('/events').then(res => addListItem(`<p><b>events finished!</b></p>`))
+</script>
+</html>

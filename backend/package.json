@@ -1,0 +1,21 @@
+{
+    "name": "hypergamma-local-backend",
+    "version": "0.0.0",
+    "type": "module",
+    "main": "index.js",
+    "author": "Garrett Flynn <garrettmflynn@gmail.com>",
+    "license": "AGPL-3.0-or-later",
+    "private": true,
+    "scripts": {
+      "start": "node index.js"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.13",
+        "@types/express": "^4.17.17"
+    },
+    "dependencies": {
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
+      "registry-js": "^1.15.1"
+    }
+}

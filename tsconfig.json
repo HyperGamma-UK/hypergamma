@@ -13,6 +13,6 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["frontend"],
+  "include": ["frontend", "common"],
   "exclude": ["node_modules"]
 }
