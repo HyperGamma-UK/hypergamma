@@ -29,6 +29,4 @@ dist-ssr
 *.sw?
 
 # builds
-android
-ios
-binaries
+build

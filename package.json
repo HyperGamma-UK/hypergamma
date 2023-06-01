@@ -2,6 +2,7 @@
   "name": "hypergamma",
   "version": "0.0.1",
   "type": "module",
+  "main": "./dist/.commoners/main/index.js",
   "private": true,
   "bin": "backend/dist/index.cjs",
   "workspaces": [
@@ -13,7 +14,6 @@
     "dev": "run-p dev:server dev:app",
     "build": "run-s build:server build:app",
     "clean": "rm -rf dist",
-
     "dev:app": "vite",
     "build:app": "vite build",
     "dev:server": "node scripts/watch-server.js",
