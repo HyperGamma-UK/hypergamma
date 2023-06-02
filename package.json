@@ -16,11 +16,8 @@
     "clean": "rm -rf dist",
     "dev:app": "vite",
     "build:app": "vite build",
-    "dev:server": "node scripts/watch-server.js",
-    "build:server": "node scripts/build-server.js",
-    "build:desktop": "CI=true tauri build",
-    "dev:desktop": "tauri dev",
-    "tauri": "tauri"
+    "dev:server": "echo 'dev:server not found'",
+    "build:server": "echo 'build:server not found'"
   },
   "author": {
     "name": "Garrett Flynn"
